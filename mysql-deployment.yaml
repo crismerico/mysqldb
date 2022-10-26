@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysqldb-deployment
+  labels:
+    app: mysqldb
+    type: database
+spec:
+  selector:
+    matchLabels:
+      app: mysqldb
+      type: database
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysqldb
+        type: database
+    spec:
+      containers:
+        - name: mysqldb
+          image: crismerico/mysqldb:v1
+          ports:
+            - containerPort: 3306
+              name: db-port
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: password
+            - name: MYSQL_DATABASE
+              value: db_sales
+
